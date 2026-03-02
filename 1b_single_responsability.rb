@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is the original code that violates the Single Responsibility Principle.
 # The Server class is responsible for both managing server information and handling SSH connections for setup and deployment.
 class Server < ApplicationRecord
@@ -43,6 +45,5 @@ class Server::SSH
     end
   end
 
-  def logger
-  end
+  def logger; end
 end
