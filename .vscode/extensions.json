@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ms-vscode-remote.remote-containers",
+
+    "kaiwood.endwise",
+    "ninoseki.vscode-gem-lens",
+    "castwide.solargraph",
+    "ldrner.rspec-snippets-vscode"
+  ]
+}
