@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ruby-rails-postgres
 {
-	"name": "Ruby on Rails template",
+	"name": "GoRails SOLID Dev Container",
 	"dockerComposeFile": "docker-compose.yml",
 	"shutdownAction": "stopCompose",
 	"service": "app",
@@ -24,7 +24,10 @@
 				"GitHub.vscode-pull-request-github",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"aliariff.vscode-erb-beautify"
+				"aliariff.vscode-erb-beautify",
+				"ninoseki.vscode-gem-lens",
+				"ninoseki.vscode-mogami",
+				"github.vscode-github-actions"
 			]
 		}
 	}

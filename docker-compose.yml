@@ -1,0 +1,35 @@
+services:
+  # Base de datos dedicada para pruebas
+  db-test:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      # Definimos una BD inicial, aunque Rails creará la suya de test
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+  # Servicio que ejecuta los tests
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: tests
+    shm_size: 2gb
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db-test/rails_demo_test
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    depends_on:
+      db-test:
+        condition: service_healthy
+    command: >
+      sh -c "bin/rails db:test:prepare &&
+             bin/rails tailwindcss:build &&
+             bin/rails test &&
+             bin/rails test:system"
+

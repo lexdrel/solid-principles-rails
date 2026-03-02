@@ -4,25 +4,33 @@ services:
   app:
     build:
       context: ..
-      dockerfile: .devcontainer/Dockerfile
+      dockerfile: Dockerfile
+      target: devcontainer
       args:
         DEVELOPER_UID: ${UID:-1000}
-        DEVELOPER_USERNAME: ${USER:-you}
+        DEVELOPER_USERNAME: ${USER:-vscode}
 
     volumes:
       - ../..:/workspaces:cached
 
     # Overrides default command so things don't shut down after the process ends.
-    command: sleep infinity
+    command: /bin/sh -c "while sleep 1000; do :; done"
 
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
+    # Connect to the db service
+    depends_on:
+      - db
+
+    environment:
+      EDITOR: code --wait
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
-    image: postgres:latest
+    image: postgres:16
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
