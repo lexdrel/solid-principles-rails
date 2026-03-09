@@ -23,3 +23,9 @@ end
 orderNumbers = [3, 4, -1, 1]
 
 p findSmallestMissingPositive(orderNumbers)
+# orderNumbers = orderNumbers.select(&:positive?).sort
+# return 1 if orderNumbers.empty?
+
+# orderNumbers.each_with_index do |num, i|
+#   return num + 1 if i + 1 == orderNumbers.length || num + 1 != orderNumbers[i + 1]
+# end
